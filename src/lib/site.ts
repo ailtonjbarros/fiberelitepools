@@ -1,6 +1,6 @@
 export const SITE = {
   name: "Fiber Elite Pools",
-  domain: "fiberelitepools.com",
+  domain: "contact@fiberelitepools.com",
   url: "https://fiberelitepools.com",
   phone: "+1 407 779-9613",
   phoneHref: "tel:+14077799613",
