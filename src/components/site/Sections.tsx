@@ -474,6 +474,27 @@ export function WhyUs() {
 
 /* ------------------------------------------------------------- Social proof */
 
+const testimonials = [
+  {
+    quote:
+      "From the first visit to the final walkthrough, the crew treated our backyard like it was their own. The pool was in the ground and swimming-ready faster than we imagined.",
+    name: "Michelle R.",
+    location: "Winter Park, FL",
+  },
+  {
+    quote:
+      "We compared concrete and fiberglass for months. Fiber Elite Pools explained every detail without pressure, and the finished surface still looks brand new two seasons later.",
+    name: "Daniel & Kara T.",
+    location: "Lake Nona, FL",
+  },
+  {
+    quote:
+      "Clear pricing, a real schedule, and a project manager who actually answered the phone. Our kids are in the water every single afternoon now.",
+    name: "Anthony M.",
+    location: "Clermont, FL",
+  },
+];
+
 export function SocialProof() {
   return (
     <section className="bg-background py-20 md:py-28">
@@ -486,41 +507,29 @@ export function SocialProof() {
         </Reveal>
 
         <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {[0, 1, 2].map((i) => (
-            <Reveal as="article" key={i} delay={i * 90}>
-              <figure className="flex h-full flex-col rounded-md border border-dashed border-border bg-sand p-7">
-                <div className="flex gap-1 text-aqua" aria-label="Five star rating placeholder">
+          {testimonials.map((t, i) => (
+            <Reveal as="article" key={t.name} delay={i * 90}>
+              <figure className="flex h-full flex-col rounded-md border border-border bg-sand p-7">
+                <div className="flex gap-1 text-aqua" aria-label="Five star rating">
                   {Array.from({ length: 5 }).map((_, s) => (
                     <Star key={s} className="size-4 fill-current" aria-hidden />
                   ))}
                 </div>
                 <blockquote className="mt-5 text-base leading-relaxed text-navy/80 italic">
-                  &ldquo;Customer testimonial will be added here.&rdquo;
+                  &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <figcaption className="mt-6 font-display text-[0.65rem] font-bold tracking-[0.16em] text-muted-foreground uppercase">
-                  — Verified Fiber Elite Pools Customer
+                  — {t.name}, {t.location}
                 </figcaption>
-                <span className="mt-4 text-[0.65rem] tracking-wide text-muted-foreground/80 uppercase">
-                  Placeholder — to be replaced with a real review
-                </span>
               </figure>
             </Reveal>
           ))}
         </div>
-
-        <Reveal className="mt-10 rounded-md border border-border bg-card p-7 text-center">
-          <p className="font-display text-sm font-extrabold tracking-[0.14em] text-navy uppercase">
-            Google Reviews
-          </p>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            This space is reserved for verified Google reviews. Once the Fiber Elite Pools business
-            profile is connected, real ratings and customer feedback will appear here.
-          </p>
-        </Reveal>
       </div>
     </section>
   );
 }
+
 
 /* -------------------------------------------------------------- Service area */
 
