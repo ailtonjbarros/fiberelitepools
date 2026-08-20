@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Menu, Phone, X, Waves } from "lucide-react";
+import logoAsset from "@/assets/fiber-elite-pools-logo.png.asset.json";
+import { Menu, Phone, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { NAV, SITE, track } from "@/lib/site";
 import { cn } from "@/lib/utils";
