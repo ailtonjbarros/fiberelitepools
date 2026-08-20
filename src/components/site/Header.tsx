@@ -33,22 +33,15 @@ export function Header() {
           aria-label={`${SITE.name} home`}
           onClick={() => setOpen(false)}
         >
-          <Waves
+          <img
+            src={logoAsset.url}
+            alt={`${SITE.name} logo`}
             className={cn(
-              "size-6 transition-colors",
-              dark ? "text-aqua" : "text-aqua",
+              "h-11 w-auto transition-all sm:h-12",
+              dark && "brightness-0 invert",
             )}
-            aria-hidden
           />
-          <span
-            className={cn(
-              "font-display text-base leading-none font-extrabold tracking-[0.16em] uppercase transition-colors sm:text-lg",
-              dark ? "text-background" : "text-navy",
-            )}
-          >
-            Fiber Elite
-            <span className="block text-[0.6rem] tracking-[0.42em] opacity-70">Pools</span>
-          </span>
+
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
