@@ -57,7 +57,7 @@ export function Header() {
               key={item.label}
               href={item.href}
               className={cn(
-                "font-display text-[0.7rem] font-bold tracking-[0.16em] uppercase transition-colors",
+                "font-display text-[0.7rem] font-bold tracking-[0.16em] whitespace-nowrap uppercase transition-colors",
                 dark
                   ? "text-background/85 hover:text-aqua"
                   : "text-navy/75 hover:text-aqua",
@@ -83,7 +83,7 @@ export function Header() {
               <span className="block font-display text-[0.6rem] font-bold tracking-[0.2em] uppercase opacity-70">
                 Call Now
               </span>
-              <span className="block font-display text-sm font-extrabold">{SITE.phone}</span>
+              <span className="block font-display text-sm font-extrabold whitespace-nowrap">{SITE.phone}</span>
             </span>
           </a>
           <Button
