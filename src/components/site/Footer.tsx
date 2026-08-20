@@ -10,12 +10,13 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2.5">
-              <Waves className="size-6 text-aqua" aria-hidden />
-              <span className="font-display text-lg leading-none font-extrabold tracking-[0.16em] uppercase">
-                Fiber Elite
-                <span className="block text-[0.6rem] tracking-[0.42em] opacity-70">Pools</span>
-              </span>
+              <img
+                src={logoAsset.url}
+                alt={`${SITE.name} logo`}
+                className="h-14 w-auto brightness-0 invert"
+              />
             </div>
+
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-navy-foreground/70">
               Premium fiberglass pools and professional installation designed to transform your
               backyard.
