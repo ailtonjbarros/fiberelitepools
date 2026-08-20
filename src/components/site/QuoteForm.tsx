@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { CheckCircle2, Phone } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -7,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Reveal } from "@/components/site/Reveal";
 import { SITE, track } from "@/lib/site";
+import { submitQuoteRequest } from "@/lib/quote.functions";
 
 const selectClass =
   "flex h-11 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-sm transition-colors focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none";
@@ -25,6 +27,9 @@ export function QuoteForm() {
   const [submitted, setSubmitted] = useState(false);
   const [started, setStarted] = useState(false);
   const [consent, setConsent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const sendQuote = useServerFn(submitQuoteRequest);
 
   const onStart = () => {
     if (started) return;
@@ -32,12 +37,40 @@ export function QuoteForm() {
     track("form_start", { form: "quote" });
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+    const fd = new FormData(e.currentTarget);
+    const value = (k: string) => String(fd.get(k) ?? "");
+    setSending(true);
+    setError(null);
     track("form_submit", { form: "quote" });
-    track("lead", { form: "quote", value: 1 });
-    setSubmitted(true);
-    if (typeof window !== "undefined") window.scrollTo({ top: window.scrollY - 80 });
+    try {
+      await sendQuote({
+        data: {
+          firstName: value("firstName"),
+          lastName: value("lastName"),
+          phone: value("phone"),
+          email: value("email"),
+          city: value("city"),
+          zip: value("zip"),
+          propertyType: value("propertyType"),
+          poolSize: value("poolSize"),
+          timeline: value("timeline"),
+          budget: value("budget"),
+          message: value("message"),
+        },
+      });
+      track("lead", { form: "quote", value: 1 });
+      setSubmitted(true);
+      if (typeof window !== "undefined") window.scrollTo({ top: window.scrollY - 80 });
+    } catch {
+      setError(
+        `We couldn't send your request. Please try again or call us at ${SITE.phone}.`,
+      );
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -175,10 +208,16 @@ export function QuoteForm() {
                 variant="quote"
                 size="xl"
                 className="mt-7 w-full"
-                disabled={!consent}
+                disabled={!consent || sending}
               >
-                Get My Free Quote
+                {sending ? "Sending…" : "Get My Free Quote"}
               </Button>
+
+              {error && (
+                <p role="alert" className="mt-4 text-center text-sm text-destructive">
+                  {error}
+                </p>
+              )}
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
                 No obligation. A Fiber Elite Pools representative will contact you to discuss your
