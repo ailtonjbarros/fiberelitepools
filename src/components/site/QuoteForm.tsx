@@ -208,10 +208,16 @@ export function QuoteForm() {
                 variant="quote"
                 size="xl"
                 className="mt-7 w-full"
-                disabled={!consent}
+                disabled={!consent || sending}
               >
-                Get My Free Quote
+                {sending ? "Sending…" : "Get My Free Quote"}
               </Button>
+
+              {error && (
+                <p role="alert" className="mt-4 text-center text-sm text-destructive">
+                  {error}
+                </p>
+              )}
 
               <p className="mt-4 text-center text-sm text-muted-foreground">
                 No obligation. A Fiber Elite Pools representative will contact you to discuss your
