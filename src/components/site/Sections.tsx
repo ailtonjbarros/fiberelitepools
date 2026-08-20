@@ -547,6 +547,17 @@ export function ServiceArea() {
             Not sure if your property is in our area? Send us your ZIP code with your quote request
             and we&apos;ll confirm availability for your project.
           </p>
+          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+            In the metro?{" "}
+            <a
+              href="/fiberglass-pools-orlando"
+              className="font-semibold text-navy underline underline-offset-4 hover:text-aqua"
+            >
+              See our Orlando fiberglass pools page
+            </a>
+            .
+          </p>
+
           <Button
             variant="navy"
             size="xl"
