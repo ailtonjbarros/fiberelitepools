@@ -1,5 +1,3 @@
-import { sendTemplateEmail } from '@/lib/email-templates/send-email'
-
 export interface QuoteRequestData {
   firstName: string
   lastName: string
@@ -14,25 +12,33 @@ export interface QuoteRequestData {
   message?: string
 }
 
-export async function sendQuoteRequestEmails(data: QuoteRequestData) {
-  const submissionId = `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`
+export async function saveQuoteRequest(data: QuoteRequestData) {
+  const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
 
-  // Internal lead notification — recipient is fixed by the template ("to").
-  await sendTemplateEmail('quote-request-notification', 'contact@fiberelitepools.com', {
-    templateData: { ...data },
-    idempotencyKey: `quote-notification-${submissionId}`,
-    replyTo: data.email,
-  })
-
-  // Confirmation to the homeowner. A suppressed recipient is a normal outcome.
-  try {
-    await sendTemplateEmail('quote-request-confirmation', data.email, {
-      templateData: { firstName: data.firstName },
-      idempotencyKey: `quote-confirmation-${submissionId}`,
+  const { data: row, error } = await supabaseAdmin
+    .from('leads')
+    .insert({
+      first_name: data.firstName,
+      last_name: data.lastName,
+      phone: data.phone,
+      email: data.email,
+      city: data.city ?? null,
+      zip_code: data.zip ?? null,
+      property_type: data.propertyType ?? null,
+      desired_pool_size: data.poolSize ?? null,
+      project_timeline: data.timeline ?? null,
+      estimated_budget: data.budget ?? null,
+      message: data.message ?? null,
+      source: 'website',
+      status: 'new',
     })
-  } catch (error) {
-    console.error('[quote] confirmation email failed', error)
+    .select('id')
+    .single()
+
+  if (error) {
+    console.error('[quote] failed to save lead', error)
+    throw new Error('Failed to save lead')
   }
 
-  return { ok: true as const }
+  return { ok: true as const, id: row.id }
 }
