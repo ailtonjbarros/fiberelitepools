@@ -14,7 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      leads: {
+        Row: {
+          city: string | null
+          created_at: string
+          desired_pool_size: string | null
+          email: string
+          estimated_budget: string | null
+          first_name: string
+          id: string
+          last_name: string
+          message: string | null
+          phone: string
+          project_timeline: string | null
+          property_type: string | null
+          source: string
+          status: string
+          zip_code: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          desired_pool_size?: string | null
+          email: string
+          estimated_budget?: string | null
+          first_name: string
+          id?: string
+          last_name: string
+          message?: string | null
+          phone: string
+          project_timeline?: string | null
+          property_type?: string | null
+          source?: string
+          status?: string
+          zip_code?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          desired_pool_size?: string | null
+          email?: string
+          estimated_budget?: string | null
+          first_name?: string
+          id?: string
+          last_name?: string
+          message?: string | null
+          phone?: string
+          project_timeline?: string | null
+          property_type?: string | null
+          source?: string
+          status?: string
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -18,6 +18,6 @@ const quoteSchema = z.object({
 export const submitQuoteRequest = createServerFn({ method: 'POST' })
   .inputValidator((data: unknown) => quoteSchema.parse(data))
   .handler(async ({ data }) => {
-    const { sendQuoteRequestEmails } = await import('./quote.server')
-    return sendQuoteRequestEmails(data)
+    const { saveQuoteRequest } = await import('./quote.server')
+    return saveQuoteRequest(data)
   })
