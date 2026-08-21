@@ -40,5 +40,40 @@ export async function saveQuoteRequest(data: QuoteRequestData) {
     throw new Error('Failed to save lead')
   }
 
+  const { sendTemplateEmail } = await import('./email-templates/send-email')
+
+  try {
+    await sendTemplateEmail('quote-request-notification', 'contact@fiberelitepools.com', {
+      templateData: {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        phone: data.phone,
+        email: data.email,
+        city: data.city,
+        zip: data.zip,
+        propertyType: data.propertyType,
+        poolSize: data.poolSize,
+        timeline: data.timeline,
+        budget: data.budget,
+        message: data.message,
+      },
+      idempotencyKey: `quote-request-notification-${row.id}`,
+      replyTo: data.email,
+    })
+  } catch (e) {
+    console.error('[quote] notification email failed', e)
+  }
+
+  try {
+    await sendTemplateEmail('quote-request-confirmation', data.email, {
+      templateData: { firstName: data.firstName },
+      idempotencyKey: `quote-request-confirmation-${row.id}`,
+      replyTo: 'contact@fiberelitepools.com',
+    })
+  } catch (e) {
+    console.error('[quote] confirmation email failed', e)
+  }
+
   return { ok: true as const, id: row.id }
 }
+
