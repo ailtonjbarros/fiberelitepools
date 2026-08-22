@@ -70,7 +70,7 @@ export function Footer() {
             <a
               href="#quote"
               onClick={() => track("click_quote", { location: "footer" })}
-              className="mt-6 inline-flex font-display text-xs font-extrabold tracking-[0.22em] text-aqua uppercase underline underline-offset-8 transition-colors hover:text-aqua-300"
+              className="mt-6 inline-flex font-display text-xs font-extrabold tracking-[0.22em] text-aqua uppercase underline underline-offset-8 transition-colors hover:text-white"
             >
               GET YOUR FREE QUOTE
             </a>
