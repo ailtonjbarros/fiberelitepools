@@ -56,6 +56,18 @@ export function Footer() {
             </a>
             <p className="mt-4 text-sm text-navy-foreground/70">{SITE.domain}</p>
             <a
+              id="footer-instagram"
+              href={SITE.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("click_instagram", { location: "footer" })}
+              className="mt-4 inline-flex items-center gap-2 text-sm text-navy-foreground/70 transition-colors hover:text-aqua"
+              aria-label="Follow Fiber Elite Pools on Instagram"
+            >
+              <Instagram className="size-5 text-aqua" aria-hidden />
+              <span className="font-medium">@fiberelitepools</span>
+            </a>
+            <a
               href="#quote"
               onClick={() => track("click_quote", { location: "footer" })}
               className="mt-6 inline-flex font-display text-[0.68rem] font-bold tracking-[0.18em] text-aqua uppercase underline underline-offset-8"
