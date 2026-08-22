@@ -4,6 +4,7 @@ export const SITE = {
   url: "https://fiberelitepools.com",
   phone: "+1 407 779-9613",
   phoneHref: "tel:+14077799613",
+  instagram: "https://www.instagram.com/fiberelitepools/",
   /** Edit this single line to update the service area shown across the site. */
   serviceArea: "Serving Central Florida and surrounding communities.",
   /** Future location landing pages can be added here (e.g. /fiberglass-pools-orlando). */
