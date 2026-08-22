@@ -1,4 +1,4 @@
-import { Phone } from "lucide-react";
+import { Phone, Instagram } from "lucide-react";
 import logoAsset from "@/assets/fiber-elite-pools-logo.png.asset.json";
 
 import { NAV, SITE, track } from "@/lib/site";
